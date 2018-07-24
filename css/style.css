@@ -12,31 +12,42 @@ body {
 
 h1 {
     font-weight: 600;
-    font-size: .9em;
-    margin: auto;
-}
-
-p {
-    font-weight: 500;
-    font-size: .8em;
-    margin-bottom: 10px;
-}
-
-div#wrapper {
-  padding: 0px;
+    font-size: 1.2em;
+    text-align: center;
 }
 
 div#linkList {
     height: 300px;
     overflow-y: auto;
+    max-width: 250px;
 }
 
 .loadedLink {
     width: 100%;
-    font-size: .8em;
+    font-size: 1em;
+    border-bottom: 1px solid #CCC;
 }
 
 .loadedLink:hover {
     background-color: #CCC;
     cursor: pointer;
+}
+
+.catPrompt {
+    display: none;
+    width: 100%;
+}
+
+.addTile {
+    border: none;
+    background-color: #DDD;
+    color: white;
+    outline: none;
+}
+
+.removeTile {
+    border: none;
+    background-color: #DDD;
+    color: white;
+    outline: none;
 }
