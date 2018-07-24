@@ -1,0 +1,38 @@
+/* main styles */
+* {
+    font-family: 'Segoe UI';
+    background-color: #EFF0F1;
+}
+
+body {
+    width: 250px;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: .9em;
+    margin: auto;
+}
+
+p {
+    font-weight: 500;
+    font-size: .8em;
+    margin-bottom: 10px;
+}
+
+div#wrapper {
+}
+
+div#linkList {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.loadedLink {
+    width: 100%;
+    font-size: .8em;
+}
+
+.loadedLink:hover {
+    background-color: #EFEEEE;
+}
