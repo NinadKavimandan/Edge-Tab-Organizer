@@ -3,10 +3,10 @@ var wrapper = document.getElementById("wrapper");
 browser.runtime.onMessage.addListener(function(request, sender) {
     if(request.name == "urlInfo")
     {
-      if(!isNewEntry(request.payload.url)) return;
+      if(!isNewEntry(request.payload.title)) return;
       var newTile = document.createElement("div");
       newTile.className = "loadedLink";
-      newTile.innerHTML = request.payload.url;
+      newTile.innerHTML = request.payload.title;
       container.appendChild(newTile);
     }
 
@@ -29,4 +29,9 @@ function isNewEntry(ele)
     i++;
   }
   return true;
+}
+
+function loadList()
+{
+  console.log("Will try something");
 }

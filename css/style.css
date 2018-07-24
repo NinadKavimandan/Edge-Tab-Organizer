@@ -2,6 +2,8 @@
 * {
     font-family: 'Segoe UI';
     background-color: #EFF0F1;
+    padding: 0px;
+    margin: 0px;
 }
 
 body {
@@ -21,6 +23,7 @@ p {
 }
 
 div#wrapper {
+  padding: 0px;
 }
 
 div#linkList {
@@ -34,5 +37,6 @@ div#linkList {
 }
 
 .loadedLink:hover {
-    background-color: #EFEEEE;
+    background-color: #CCC;
+    cursor: pointer;
 }

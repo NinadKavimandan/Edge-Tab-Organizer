@@ -28,7 +28,7 @@
     ],
     "minimum_edge_version": "37.14316.1000.0",
     "background": {
-    "page": "listTile.html",
+    "page": "background.html",
     "persistent": true
   },
     "content_scripts": [
