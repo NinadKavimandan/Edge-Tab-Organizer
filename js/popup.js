@@ -75,7 +75,7 @@ function isAddedAlready(e, list)
 {
   var maxlen = list.length;
   var i=0;
-  alert("Max length: "+maxlen);
+  //alert("Max length: "+maxlen);
   while(i<maxlen)
   {
     if(list[i].title == e) return true;

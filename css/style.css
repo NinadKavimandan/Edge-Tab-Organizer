@@ -65,6 +65,10 @@ div#linkList {
   cursor: pointer;
 }
 
+.saved:hover {
+    color: #DDD;
+}
+
 .settings {
   float: right;
   background-color: inherit;
