@@ -1,21 +1,11 @@
 var linkInfo = [];
 var linkCnt = 0;
 
+var balance = -1;
 browser.runtime.onMessage.addListener(function (request, sender) {
   if (request.name === 'loadTabs') {
     alert("In background script");
-    var valList = JSON.parse(localStorage.getItem('saved'));
-    var maxlen = valList.length;
-    var i=0;
-    while(i<maxlen)
-    {
-      alert(valList[i].title);
-      var creating = browser.tabs.create({
-        url: valList[i].url
-      });
-      creating.then(printSuccess, erorHandler);
-      i++;
-    }
+    loadBalanceTabs(-1);
   }
   else if(request.name == 'urlInfo') {
     if(isPresent(request.payload.title)) return;
@@ -51,6 +41,7 @@ function HandleUpdate(tabId, changeInfo, tab)
   tmpObj.id = tabId;
   linkInfo.push(tmpObj);
   linkCnt++;
+  if(balance != -1) loadBalanceTabs();
 }
 
 function HandleRemove(tabId, changeInfo, tab)
@@ -84,6 +75,22 @@ function HandleReplace(tabId, changeInfo, tab)
   }
 }
 
+function loadBalanceTabs()
+{
+  var valList = JSON.parse(localStorage.getItem('saved'));
+  var maxlen = valList.length;
+  balance = balance==-1?0:balance;
+  while(balance<maxlen)
+  {
+    balance++;
+    var creating = browser.tabs.create({
+      url: valList[balance-1].url
+    });
+    creating.then(printSuccess, erorHandler);
+  }
+
+  balance = -1;
+}
+
 browser.tabs.onUpdated.addListener(HandleUpdate);
-chrome.tabs.onRemoved.addListener(HandleRemove);
-//chrome.tabs.onReplaced.addListener(HandleReplace);
+browser.tabs.onRemoved.addListener(HandleRemove);
