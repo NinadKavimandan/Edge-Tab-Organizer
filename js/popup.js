@@ -32,6 +32,7 @@ function genCorspndPrompt(e)
   removeB.onclick = function(event) { removeLinkFromList(e, event); };
   promptTile.id = 'p'+e;
   promptTile.className = 'catPrompt';
+  promptTile.style.display = "none";
   promptTile.appendChild(addB);
   //promptTile.appendChild(removeB);
   return promptTile;
@@ -91,6 +92,7 @@ function removeLinkFromList(e, event)
 
 function togglePrompt(e, event)
 {
+  console.log("Tab prompt: "+e);
   var targetPrompt = document.getElementById('p'+e);
   if(targetPrompt.style.display == "none") targetPrompt.style.display = "block";
   else targetPrompt.style.display = "none";
@@ -100,17 +102,17 @@ function togglePrompt(e, event)
 function loadList()
 {
   //var tabs = browser.extension.getBackgroundPage().linkInfo;
-  var maxlen =  tabs.length;
+  var maxlen = tabs.length;
   var i=0;
   while(i<maxlen)
     {
       var newTile = document.createElement("div");
       newTile.className = "loadedLink";
       newTile.innerHTML = tabs[i].title;
-      var promptTile = genCorspndPrompt(i);
       newTile.id = i;
+      var promptTile = genCorspndPrompt(newTile.id);
       newTile.appendChild(promptTile);
-      newTile.onclick = function(event) { togglePrompt(newTile.id, event); };
+      newTile.onclick = function(event) { togglePrompt(this.id, event); };
       container.appendChild(newTile);
       i++;
     }
