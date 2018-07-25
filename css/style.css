@@ -54,3 +54,11 @@ div#linkList {
     outline: none;
     margin: auto;
 }
+
+.saved {
+  background-color: #BBB;
+  font-size: 1em;
+  border: 1px solid #AAA;
+  text-align: center;
+  cursor: pointer;
+}

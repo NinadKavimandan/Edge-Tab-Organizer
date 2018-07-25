@@ -116,3 +116,12 @@ function loadList()
 }
 
 loadList();
+
+function loadSavedTabs()
+{
+  //var valList = JSON.parse(localStorage.getItem('saved'));
+
+  browser.runtime.sendMessage({name:'loadTabs'});
+}
+
+document.getElementById("saved").addEventListener("click", loadSavedTabs);

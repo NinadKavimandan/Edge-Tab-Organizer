@@ -2,9 +2,20 @@ var linkInfo = [];
 var linkCnt = 0;
 
 browser.runtime.onMessage.addListener(function (request, sender) {
-  if (request.name === 'bounce') {
-    var curUrl = document.location.href;
-    browser.tabs.sendMessage(sender.tab.id, {url: curUrl});
+  if (request.name === 'loadTabs') {
+    alert("In background script");
+    var valList = JSON.parse(localStorage.getItem('saved'));
+    var maxlen = valList.length;
+    var i=0;
+    while(i<maxlen)
+    {
+      alert(valList[i].title);
+      var creating = browser.tabs.create({
+        url: valList[i].url
+      });
+      creating.then(printSuccess, erorHandler);
+      i++;
+    }
   }
   else if(request.name == 'urlInfo') {
     if(isPresent(request.payload.title)) return;
