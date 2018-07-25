@@ -137,6 +137,7 @@ function displaySavedTabs(event)
   {
     headContainer.innerHTML = "";
     isDisplayed = false;
+    event.stopPropagation();
     return;
   }
   while(i<maxlen)
@@ -145,7 +146,8 @@ function displaySavedTabs(event)
     newTile.className = "loadedLink";
     newTile.innerHTML = valList[i].title;
     newTile.id = "h"+i;
-    newTile.onclick = function() { browser.tabs.create({url: valList[i].url}); };
+    var url = valList[i].url;
+    newTile.onclick = function(event) { browser.tabs.create({url: url}); event.stopPropagation();};
     var removeTab = document.createElement("div");
     removeTab.innerHTML = '&#10060';
     removeTab.className = 'settings';
