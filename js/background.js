@@ -21,7 +21,7 @@ function isPresent(tab)
     var i=0;
     while(i<linkCnt)
     {
-      if(linkInfo[i].link == tab.url) 
+      if(linkInfo[i].link == tab.url)
       {
         if(linkInfo[i].title != tab.title) linkInfo[i].title = tab.title;
         return true;
@@ -40,7 +40,6 @@ function HandleUpdate(tabId, changeInfo, tab)
   tmpObj.id = tabId;
   linkInfo.push(tmpObj);
   linkCnt++;
-  alert(linkCnt+" "+tabId);
 }
 
 function HandleRemove(tabId, changeInfo, tab)

@@ -36,6 +36,7 @@ div#linkList {
 .catPrompt {
     display: none;
     width: 100%;
+    background-color: inherit;
 }
 
 .addTile {
@@ -43,6 +44,7 @@ div#linkList {
     background-color: #DDD;
     color: white;
     outline: none;
+    margin: auto;
 }
 
 .removeTile {
@@ -50,4 +52,5 @@ div#linkList {
     background-color: #DDD;
     color: white;
     outline: none;
+    margin: auto;
 }

@@ -24,7 +24,8 @@
         "tabs",
         "storage",
         "activeTab",
-        "<all_urls>"
+        "<all_urls>",
+        "unlimitedStorage"
     ],
     "minimum_edge_version": "37.14316.1000.0",
     "background": {
