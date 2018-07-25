@@ -35,16 +35,17 @@ div#linkList {
 
 .catPrompt {
     display: none;
-    width: 100%;
-    background-color: inherit;
+    width: 50%;
+    margin: auto;
+    text-align: center;
 }
 
 .addTile {
     border: none;
-    background-color: #DDD;
+    background-color: #BBB;
     color: white;
     outline: none;
-    margin: auto;
+    text-align: center;
 }
 
 .removeTile {
@@ -61,4 +62,11 @@ div#linkList {
   border: 1px solid #AAA;
   text-align: center;
   cursor: pointer;
+}
+
+.settings {
+  float: right;
+  background-color: inherit;
+  z-index: 5;
+  border-left: 0.5px solid #CCC;
 }

@@ -22,8 +22,8 @@ var tabs = browser.extension.getBackgroundPage().linkInfo;
 function genCorspndPrompt(e)
 {
   var promptTile = document.createElement("div");
-  var addB = document.createElement("button");
-  var removeB = document.createElement("button");
+  var addB = document.createElement("div");
+  var removeB = document.createElement("div");
   addB.class = 'addTile';
   removeB.class = 'removeTile';
   addB.innerHTML = 'Add to group';
@@ -33,7 +33,7 @@ function genCorspndPrompt(e)
   promptTile.id = 'p'+e;
   promptTile.className = 'catPrompt';
   promptTile.appendChild(addB);
-  promptTile.appendChild(removeB);
+  //promptTile.appendChild(removeB);
   return promptTile;
 }
 
@@ -89,11 +89,12 @@ function removeLinkFromList(e, event)
   event.stopPropagation();
 }
 
-function togglePrompt(e)
+function togglePrompt(e, event)
 {
   var targetPrompt = document.getElementById('p'+e);
   if(targetPrompt.style.display == "none") targetPrompt.style.display = "block";
   else targetPrompt.style.display = "none";
+  event.stopPropagation();
 }
 
 function loadList()
@@ -109,7 +110,7 @@ function loadList()
       var promptTile = genCorspndPrompt(i);
       newTile.id = i;
       newTile.appendChild(promptTile);
-      newTile.onclick = function() { togglePrompt(newTile.id); };
+      newTile.onclick = function(event) { togglePrompt(newTile.id, event); };
       container.appendChild(newTile);
       i++;
     }
@@ -119,9 +120,64 @@ loadList();
 
 function loadSavedTabs()
 {
-  //var valList = JSON.parse(localStorage.getItem('saved'));
+    browser.runtime.sendMessage({name:'loadTabs'});
+}
 
-  browser.runtime.sendMessage({name:'loadTabs'});
+var isDisplayed = false;
+
+function displaySavedTabs(event)
+{
+  var valList = JSON.parse(localStorage.getItem('saved'));
+  var maxlen = valList.length;
+  var i=0;
+  var headContainer = document.getElementById("header");
+  if(isDisplayed)
+  {
+    headContainer.innerHTML = "";
+    isDisplayed = false;
+    return;
+  }
+  while(i<maxlen)
+  {
+    var newTile = document.createElement("div");
+    newTile.className = "loadedLink";
+    newTile.innerHTML = valList[i].title;
+    newTile.id = "h"+i;
+    newTile.onclick = function() { browser.tabs.create({url: valList[i].url}); };
+    var removeTab = document.createElement("div");
+    removeTab.innerHTML = '&#10060';
+    removeTab.className = 'settings';
+    //alert("i="+i);
+    removeTab.onclick = function(event) { removeTabFromSaved(newTile.id, event); };
+    newTile.appendChild(removeTab);
+    headContainer.appendChild(newTile);
+    i++;
+  }
+  isDisplayed = true;
+  event.stopPropagation();
+}
+
+function removeTabFromSaved(i, event)
+{
+  var valList = JSON.parse(localStorage.getItem('saved'));
+  var maxlen = valList.length;
+  var tmp = [];
+  var t=i.length;
+  i = i.substring(1,t);
+  t=0;
+  console.log(i);
+  while(t<maxlen)
+  {
+    if(t!=i) tmp.push(valList[t]);
+    t++;
+  }
+  //alert("In delete");
+  localStorage.setItem('saved', JSON.stringify(tmp));
+  document.getElementById("header").innerHTML = "";
+  isDisplayed = false;
+  //displaySavedTabs();
+  event.stopPropagation();
 }
 
 document.getElementById("saved").addEventListener("click", loadSavedTabs);
+document.getElementById("manage").addEventListener("click", displaySavedTabs);

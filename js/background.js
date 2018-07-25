@@ -54,7 +54,6 @@ function HandleRemove(tabId, changeInfo, tab)
     {
       alert("Deleting: "+linkInfo[i].title);
       delete linkInfo[i];
-      linkCnt--;
       break;
     }
     i++;
@@ -93,4 +92,4 @@ function loadBalanceTabs()
 }
 
 browser.tabs.onUpdated.addListener(HandleUpdate);
-browser.tabs.onRemoved.addListener(HandleRemove);
+//browser.tabs.onRemoved.addListener(HandleRemove);
