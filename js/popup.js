@@ -1,22 +1,5 @@
 var container = document.getElementById("linkList");
-//var wrapper = document.getElementById("wrapper");
-/*browser.runtime.onMessage.addListener(function(request, sender) {
-    if(request.name == "urlInfo")
-    {
-      if(!isNewEntry(request.payload.title)) return;
-      var newTile = document.createElement("div");
-      newTile.className = "loadedLink";
-      newTile.innerHTML = request.payload.title;
-      container.appendChild(newTile);
-    }
-
-    else if(request.name == "toggle")
-    {
-      if(request.payload.flag) wrapper.style.display = "none";
-      else wrapper.style.display = "block";
-    }
-});
-*/
+var truncLim = 28;
 var tabs = browser.extension.getBackgroundPage().linkInfo;
 
 function genCorspndPrompt(e)
@@ -75,7 +58,7 @@ function isAddedAlready(e, list)
 {
   var maxlen = list.length;
   var i=0;
-  alert("Max length: "+maxlen);
+  //alert("Max length: "+maxlen);
   while(i<maxlen)
   {
     if(list[i].title == e) return true;
@@ -108,7 +91,10 @@ function loadList()
     {
       var newTile = document.createElement("div");
       newTile.className = "loadedLink";
-      newTile.innerHTML = tabs[i].title;
+      var len = tabs[i].title.length;
+      var title = tabs[i].title;
+      if(len > 29) title = title.substring(0, truncLim) + "..";
+      newTile.innerHTML = title;
       newTile.id = i;
       var promptTile = genCorspndPrompt(newTile.id);
       newTile.appendChild(promptTile);
@@ -137,20 +123,25 @@ function displaySavedTabs(event)
   {
     headContainer.innerHTML = "";
     isDisplayed = false;
+    event.stopPropagation();
     return;
   }
   while(i<maxlen)
   {
     var newTile = document.createElement("div");
     newTile.className = "loadedLink";
-    newTile.innerHTML = valList[i].title;
+    var len = tabs[i].title.length;
+    var title = tabs[i].title;
+    if(len > 29) title = title.substring(0, truncLim) + "..";
+    newTile.innerHTML = title;
     newTile.id = "h"+i;
-    newTile.onclick = function() { browser.tabs.create({url: valList[i].url}); };
+    var url = valList[i].url;
+    newTile.onclick = function(event) { browser.tabs.create({url: url}); event.stopPropagation();};
     var removeTab = document.createElement("div");
     removeTab.innerHTML = '&#10060';
     removeTab.className = 'settings';
     //alert("i="+i);
-    removeTab.onclick = function(event) { removeTabFromSaved(newTile.id, event); };
+    removeTab.onclick = function(event) { removeTabFromSaved(this.id, event); };
     newTile.appendChild(removeTab);
     headContainer.appendChild(newTile);
     i++;

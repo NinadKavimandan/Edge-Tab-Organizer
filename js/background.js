@@ -4,7 +4,7 @@ var linkCnt = 0;
 var balance = -1;
 browser.runtime.onMessage.addListener(function (request, sender) {
   if (request.name === 'loadTabs') {
-    alert("In background script");
+    //alert("In background script");
     loadBalanceTabs(-1);
   }
   else if(request.name == 'urlInfo') {
@@ -47,12 +47,12 @@ function HandleUpdate(tabId, changeInfo, tab)
 function HandleRemove(tabId, changeInfo, tab)
 {
   var i=0;
-  alert("Deleting "+tabId);
+  //alert("Deleting "+tabId);
   while(i<linkCnt)
   {
     if(linkInfo[i].id == tabId)
     {
-      alert("Deleting: "+linkInfo[i].title);
+      //alert("Deleting: "+linkInfo[i].title);
       delete linkInfo[i];
       break;
     }
@@ -91,5 +91,44 @@ function loadBalanceTabs()
   balance = -1;
 }
 
+function getTabIndex(url)
+{
+  var i=0;
+  while(i<linkCnt)
+  {
+    if(linkInfo[i].link == url) return i;
+    i++;
+  }
+  return -1;
+}
+
+function alreadyAdded(list, url)
+{
+  var maxlen = list.length;
+  var i=0;
+  while(i<maxlen)
+  {
+    if(list[i].url == url) return true;
+    i++;
+  }
+  return false;
+}
+
 browser.tabs.onUpdated.addListener(HandleUpdate);
 //browser.tabs.onRemoved.addListener(HandleRemove);
+browser.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    //alert("Request received: "+request);
+    var tIndex = getTabIndex(request);
+    var valList = JSON.parse(localStorage.getItem('saved'));
+    if(alreadyAdded(valList, linkInfo[tIndex].link))
+    {
+      alert("There already");
+      return;
+    }
+    var tmpObj = {};
+    tmpObj['title'] = linkInfo[tIndex].title;
+    tmpObj['url'] = linkInfo[tIndex].link;
+    valList.push(tmpObj); 
+    localStorage.setItem('saved', JSON.stringify(valList));
+});

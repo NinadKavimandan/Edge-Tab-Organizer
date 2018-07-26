@@ -10,6 +10,8 @@
 
 body {
     width: 250px;
+    height: 100%;
+    border-radius: 5px;
 }
 
 h1 {
@@ -21,7 +23,7 @@ h1 {
 div#linkList {
     height: 300px;
     overflow-y: auto;
-    max-width: 250px;
+    width: 100%;
 }
 
 .loadedLink {
@@ -44,8 +46,7 @@ div#linkList {
 
 .addTile {
     border: none;
-    background-color: #BBB;
-    color: white;
+    background-color: #111;
     outline: none;
     text-align: center;
 }
@@ -64,6 +65,10 @@ div#linkList {
   border: 1px solid #AAA;
   text-align: center;
   cursor: pointer;
+}
+
+.saved:hover {
+    color: #DDD;
 }
 
 .settings {
