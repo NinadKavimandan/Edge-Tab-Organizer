@@ -1,5 +1,5 @@
 {
-    "name": "AddPage_TabOrganziHelper",
+    "name": "Taporazzi Helper",
     "version": "1.0.0",
     "description": "A tab organizer for our favorite, Microsoft Edge",
     "author": "Homunculi",
@@ -16,7 +16,7 @@
           "60": "icons/add_60.png",
           "70": "icons/add_70.png"
           },
-        "default_title": "TabOrgani"
+        "default_title": "Add to saved"
     },
     "permissions": [
         "contextMenus",

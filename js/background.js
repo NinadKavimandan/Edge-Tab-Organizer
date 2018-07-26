@@ -24,7 +24,7 @@ function isPresent(tab)
     {
       if(linkInfo[i].link == tab.url)
       {
-        if(linkInfo[i].title != tab.title) linkInfo[i].title = tab.title;
+        if(linkInfo[i].title.length < tab.title.length) linkInfo[i].title = tab.title;
         return true;
       }
       i++;
@@ -54,20 +54,6 @@ function HandleRemove(tabId, changeInfo, tab)
     {
       //alert("Deleting: "+linkInfo[i].title);
       delete linkInfo[i];
-      break;
-    }
-    i++;
-  }
-}
-
-function HandleReplace(tabId, changeInfo, tab)
-{
-  var i=0;
-  while(i<linkCnt)
-  {
-    if(linkInfo[i].id == tabId)
-    {
-      linkInfo[i].link = tab.
       break;
     }
     i++;
@@ -114,7 +100,23 @@ function alreadyAdded(list, url)
   return false;
 }
 
+function HandleReplace(tabId, changeInfo, tab)
+{
+  var i=0;
+  while(i<linkCnt)
+  {
+    if(linkList[i].id == tabId)
+    {
+      linkList[i].link = tab.url;
+      linkList[i].title = tab.title;
+      return;
+    }
+    i++;
+  }
+}
+
 browser.tabs.onUpdated.addListener(HandleUpdate);
+browser.tabs.onReplaced.addListener(HandleReplace);
 //browser.tabs.onRemoved.addListener(HandleRemove);
 browser.runtime.onMessageExternal.addListener(
   function(request, sender, sendResponse) {
@@ -129,6 +131,7 @@ browser.runtime.onMessageExternal.addListener(
     var tmpObj = {};
     tmpObj['title'] = linkInfo[tIndex].title;
     tmpObj['url'] = linkInfo[tIndex].link;
-    valList.push(tmpObj); 
+    valList.push(tmpObj);
     localStorage.setItem('saved', JSON.stringify(valList));
+    alert("Added!");
 });

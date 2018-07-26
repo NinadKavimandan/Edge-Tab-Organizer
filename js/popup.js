@@ -141,7 +141,8 @@ function displaySavedTabs(event)
     removeTab.innerHTML = '&#10060';
     removeTab.className = 'settings';
     //alert("i="+i);
-    removeTab.onclick = function(event) { removeTabFromSaved(this.id, event); };
+    var tmpId = i;
+    removeTab.onclick = function(event) { removeTabFromSaved(tmpId, event); };
     newTile.appendChild(removeTab);
     headContainer.appendChild(newTile);
     i++;
@@ -155,10 +156,10 @@ function removeTabFromSaved(i, event)
   var valList = JSON.parse(localStorage.getItem('saved'));
   var maxlen = valList.length;
   var tmp = [];
-  var t=i.length;
-  i = i.substring(1,t);
-  t=0;
-  console.log(i);
+  //var t=i.length;
+  //i = parseInt(i.substring(1,t));
+  var t=0;
+  console.log("To be removed: "+i);
   while(t<maxlen)
   {
     if(t!=i) tmp.push(valList[t]);
