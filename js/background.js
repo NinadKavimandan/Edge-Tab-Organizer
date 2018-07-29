@@ -1,6 +1,8 @@
 var linkInfo = [];
 var linkCnt = 0;
 
+var targetExt = "TaporazziHelper_7F433D28901E4CC787B94AC017D46F23";
+
 var balance = -1;
 browser.runtime.onMessage.addListener(function (request, sender) {
   if (request.name === 'loadTabs') {
@@ -124,17 +126,18 @@ browser.runtime.onMessageExternal.addListener(
     {
       alert(request);
       var keys = [];
-      for(var key in localStorage) keys.push(key);
+      for(var i=0;i<localStorage.length;i++) keys.push(localStorage.key(i));
       sendResponse({tabs: keys});
     }
     //alert("Request received: "+request);
-    var tIndex = getTabIndex(request);
+    var tIndex = getTabIndex(request.url);
     var valList = JSON.parse(localStorage.getItem('saved'));
     if(alreadyAdded(valList, linkInfo[tIndex].link))
     {
       alert("There already");
       return;
     }
+    alert(request.group);
     var tmpObj = {};
     tmpObj['title'] = linkInfo[tIndex].title;
     tmpObj['url'] = linkInfo[tIndex].link;

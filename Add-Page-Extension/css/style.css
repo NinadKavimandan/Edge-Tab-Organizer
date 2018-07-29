@@ -3,7 +3,9 @@
 }
 
 body {
-  width: 100px;
+  width: 120px;
+  max-height: 300px;
+  overflow-y: auto;
   background-color: #EFF0F1;
 }
 
@@ -14,12 +16,16 @@ div#container {
 .savedTabs {
   width: 100%;
   text-align: center;
-  font-size: 1em;
-  line-height: 1em;
-  border-bottom: 1em solid #DDD;
+  font-size: 1.2em;
+  line-height: 1.2em;
 }
 
 .savedTabs:hover {
   background-color: #DDD;
   cursor: pointer;
+}
+
+input[type="text"] {
+  width: 70px;
+  margin: auto;
 }
