@@ -1,0 +1,25 @@
+* {
+  margin: 0px;
+}
+
+body {
+  width: 100px;
+  background-color: #EFF0F1;
+}
+
+div#container {
+  width: 100%;
+}
+
+.savedTabs {
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
+  line-height: 1em;
+  border-bottom: 1em solid #DDD;
+}
+
+.savedTabs:hover {
+  background-color: #DDD;
+  cursor: pointer;
+}

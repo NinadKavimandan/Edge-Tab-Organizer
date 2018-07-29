@@ -16,7 +16,8 @@
           "60": "icons/add_60.png",
           "70": "icons/add_70.png"
           },
-        "default_title": "Add to saved"
+        "default_title": "Add to saved",
+        "default_popup": "popup.html"
     },
     "permissions": [
         "contextMenus",

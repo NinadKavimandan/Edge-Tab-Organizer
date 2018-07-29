@@ -120,6 +120,13 @@ browser.tabs.onReplaced.addListener(HandleReplace);
 //browser.tabs.onRemoved.addListener(HandleRemove);
 browser.runtime.onMessageExternal.addListener(
   function(request, sender, sendResponse) {
+    if(request == "saved")
+    {
+      alert(request);
+      var keys = [];
+      for(var key in localStorage) keys.push(key);
+      sendResponse({tabs: keys});
+    }
     //alert("Request received: "+request);
     var tIndex = getTabIndex(request);
     var valList = JSON.parse(localStorage.getItem('saved'));
@@ -134,4 +141,5 @@ browser.runtime.onMessageExternal.addListener(
     valList.push(tmpObj);
     localStorage.setItem('saved', JSON.stringify(valList));
     alert("Added!");
+    return;
 });
